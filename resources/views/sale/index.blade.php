@@ -153,6 +153,7 @@ $sortBy = request()->query('sort');
 
     @push('scripts')
     <script type="text/javascript">
+        localStorage.removeItem('cart')
         const edit_modal = document.getElementById('editModal');
         const edit_btn = document.getElementById('edit_btn')
         document.querySelectorAll('.item-table').forEach(row => {

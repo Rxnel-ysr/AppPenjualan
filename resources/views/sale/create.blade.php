@@ -43,16 +43,15 @@
             </div>
         </div>
 
-        <!-- Shopping Cart Card -->
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0"><i class="bi bi-cart-check me-2"></i>Shopping Cart</h5>
+                    <h5 class="mb-0"><i class="bi bi-cart-check me-2"></i>Cart</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
-                            <thead class="table-light">
+                            <thead >
                                 <tr>
                                     <th>Item</th>
                                     <th>Price</th>
