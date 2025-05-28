@@ -1,0 +1,71 @@
+@extends('layouts.guest')
+
+@section('content')
+<div class="container-fluid d-flex justify-content-center align-items-center bg-dark" style="min-height: 90dvh;">
+    <div class="card shadow-lg overflow-hidden bg-dark" style="max-width: 1200px; border-radius: 1rem; padding: 5rem; border: 1px solid #333;">
+        <div class="row g-0">
+            <!-- Image Section (Left) -->
+            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center p-5">
+                <img src="{{ asset('storage/developer/Book-3D-BGR.png') }}"
+                    class="img-fluid"
+                    style="max-height: 70vh; width: auto; user-select: none; filter: brightness(0.8);"
+                    alt="SMKN2 3D Illustration">
+            </div>
+
+            <!-- Form Section (Right) -->
+            <div class="col-lg-6">
+                <div class="card-body p-4 p-md-5 shadow-sm bg-dark text-light" style="border-radius: 0.5rem;">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold text-light">{{__('Login Staff')}}</h3>
+                        <p class="text-muted text-light-emphasis">{{__('Please enter your credentials')}}</p>
+                    </div>
+                    <div class="p-4">
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+
+                            <div class="mb-3">
+                                <label for="loginUsername" class="form-label text-light">Username</label>
+                                <input type="text"
+                                    class="form-control py-2 bg-dark text-light border-secondary"
+                                    id="loginUsername"
+                                    name="username"
+                                    placeholder="Enter your username"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label text-light">Password</label>
+                                <input type="password"
+                                    class="form-control py-2 bg-dark text-light border-secondary"
+                                    id="loginPassword"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex flex-column mb-3">
+                                    <label class="form-label text-light">Remember Me</label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="remember" id="loginRememberYes" value="1">
+                                            <label class="form-check-label text-light" for="loginRememberYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="remember" id="loginRememberNo" value="0" checked>
+                                            <label class="form-check-label text-light" for="loginRememberNo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center">{{__('Haven\'t registered?')}} <span><a href="{{ route('register') }}" class="link-info">{{__('Register now')}}</a></span></p>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
