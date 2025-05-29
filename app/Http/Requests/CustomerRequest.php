@@ -26,8 +26,9 @@ class CustomerRequest extends FormRequest
             'name' => ['required', 'string'],
             'address' => ['required', 'string'],
             'gender' => ['required', Rule::in(['male', 'female'])],
-            'address' => ['required','string'],
-            'telephone' => ['required','min:10','max:12']
+            'address' => ['required', 'string'],
+            'email' => ['required', 'string', Rule::unique('customers', 'email')->ignore($this->input('id') ?? $this->id)],
+            'telephone' => ['required', 'min:10', 'max:12']
         ];
     }
 }

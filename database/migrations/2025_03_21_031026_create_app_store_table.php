@@ -22,12 +22,13 @@ return new class extends Migration {
             $table->string('name');
             $table->enum('gender', ['male', 'female']);
             $table->text('address');
+            $table->string('email')->unique();
             $table->string('telephone');
         });
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
 

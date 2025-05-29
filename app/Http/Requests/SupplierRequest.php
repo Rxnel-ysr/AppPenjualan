@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SupplierRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class SupplierRequest extends FormRequest
     {
         return [
             'id' => ['sometimes', 'numeric'],
-            'name' => ['required', 'string', 'min:10'],
+            'name' => ['required', 'string', 'min:10', Rule::unique('customers', 'email')->ignore($this->input('id') ?? $this->id)],
             'address' => ['required', 'string'],
             'post_code' => ['required', 'string', 'min:4', 'max:6'],
 

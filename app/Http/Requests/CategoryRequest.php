@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
             'name' => [
                 'required',
                 'min:5',
-                Rule::unique('categories', 'name')->ignore($this->input('id'))
+                Rule::unique('categories', 'name')->ignore($this->input('id') ?? $this->id)
             ],
             'id' => ['sometimes'],
             'old_name' => ['sometimes', 'string']
