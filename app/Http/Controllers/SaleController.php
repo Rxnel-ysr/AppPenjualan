@@ -10,7 +10,6 @@ use App\Models\SaleDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;;
 class SaleController extends Controller
@@ -81,6 +80,8 @@ class SaleController extends Controller
         ]);
 
         // hell with laravel pivot, i hate over-abstraction
+        // Nvm, it just me who get confused with parameter names
+        // Still kinda hate it though
         $pivot = [];
         foreach ($cartItems as $item) {
             $pivot[] = [
