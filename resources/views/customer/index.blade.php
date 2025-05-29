@@ -8,24 +8,20 @@ $sortBy = request()->query('sort');
 @endphp
 <div class="container">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
-        <!-- Add Item Button -->
         <div class="w-25">
             <button type="button" class="btn btn-dark rounded px-4 py-2 shadow" data-bs-toggle="modal" data-bs-target="#addModal">
                 Add Item
             </button>
         </div>
 
-        <!-- Search and Filter Form -->
         <div class="ms-md-auto w-75 w-md-auto">
             <form class="d-flex flex-column flex-md-row gap-4 align-items-md-center" method="get">
-                <!-- Search by Name -->
                 <div class="d-flex align-items-center gap-2">
                     <label for="name" class="form-label text-uppercase small mb-0">Name</label>
                     <input type="text" class="form-control border-0 rounded-3 px-3"
                         id="name" name="name" value="{{ request()->query('name') }}" style="min-width: 120px;">
                 </div>
 
-                <!-- Sorting Options -->
                 <div class="d-flex align-items-center gap-2">
                     <label for="order_by" class="mb-0 small">Order By:</label>
                     <select class="form-select border-0 rounded-3 px-3"
@@ -36,7 +32,6 @@ $sortBy = request()->query('sort');
                 </div>
 
 
-                <!-- Action Buttons -->
                 <div class="d-flex gap-2 ms-md-3">
                     <button type="submit" class="btn btn-dark">Search</button>
                     <a href="{{ route('customer.index') }}" role="link" class="btn btn-dark">Reset</a>

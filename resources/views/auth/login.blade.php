@@ -4,7 +4,6 @@
 <div class="container-fluid d-flex justify-content-center align-items-center bg-dark" style="min-height: 90dvh;">
     <div class="card shadow-lg overflow-hidden bg-dark" style="max-width: 1200px; border-radius: 1rem; padding: 5rem; border: 1px solid #333;">
         <div class="row g-0">
-            <!-- Image Section (Left) -->
             <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center p-5">
                 <img src="{{ asset('storage/developer/Book-3D-BGR.png') }}"
                     class="img-fluid"
@@ -12,7 +11,6 @@
                     alt="SMKN2 3D Illustration">
             </div>
 
-            <!-- Form Section (Right) -->
             <div class="col-lg-6">
                 <div class="card-body p-4 p-md-5 shadow-sm bg-dark text-light" style="border-radius: 0.5rem;">
                     <div class="text-center mb-4">

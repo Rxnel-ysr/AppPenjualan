@@ -3,7 +3,6 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="row g-4">
-        <!-- New Sale Card -->
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-purple text-white">

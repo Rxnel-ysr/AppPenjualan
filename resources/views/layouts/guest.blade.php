@@ -5,25 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
-    <!-- Fonts & Icons -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/b5.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-    <!-- Js Helper -->
-    <script src="{{ asset('js/helpers.js') }}"></script>
 
 </head>
 
@@ -39,12 +33,10 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
 
                     </ul>
@@ -54,7 +46,6 @@
         <main>
             @yield('content')
         </main>
-        <!-- Toasts -->
         <div class="toast-container">
             @php
             $toastColors = [
@@ -102,9 +93,9 @@
             @endforeach
         </div>
     </div>
-    <!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/b5.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
     @stack('scripts')
 </body>

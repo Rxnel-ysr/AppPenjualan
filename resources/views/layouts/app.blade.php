@@ -8,12 +8,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts & Icons -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Styles -->
     <link type="text/css" rel="stylesheet" href="{{ asset('css/b5.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -23,7 +21,6 @@
 
 <body>
     <div id="app">
-        <!-- Sidebar -->
         <div class="sidebar h-100 d-flex flex-column">
             <h4 class="text-white">Admin</h4>
             <div>
@@ -67,12 +64,10 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="content">
             @yield('content')
         </div>
 
-        <!-- Toasts -->
         <div class="toast-container">
             @php
             $toastColors = [
@@ -121,7 +116,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/b5.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
