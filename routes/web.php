@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/sales/add', [SaleController::class, 'create'])->name('sale.create');
     Route::post('/sales', [SaleController::class, 'addSale'])->name('sale.store');
     Route::delete('/sales/delete', [SaleController::class, 'deleteSale'])->name('sale.delete');
-    Route::put('/sales/update', [SaleController::class, 'updateSale'])->name('sale.update');
+    // Route::put('/sales/update', [SaleController::class, 'updateSale'])->name('sale.update');
 
     Route::get('/items', [ItemController::class, 'index'])->name('item.index');
     Route::post('/items/add', [ItemController::class, 'addItem'])->name('item.store');
@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/purchases/update', [PurchaseController::class, 'updatePurchase'])->name('purchase.update');
 
     Route::post('/sale/report', [SaleController::class, 'generateSaleReport'])->name('sale.pdf');
+    Route::post('/sales/report', [SaleController::class, 'generateSalesReport'])->name('sales.pdf');
 });
 
 Route::get('/test/{id}', [TestController::class, 'generateSaleReport']);

@@ -8,7 +8,7 @@ $isEnoughRow = $rows >= $minRow;
 
 <head>
     <meta charset="UTF-8">
-    <title>Sale Report</title>
+    <title>Sale ID: {{ $sale->id }} Report</title>
 
     <style>
         body {

@@ -20,9 +20,12 @@ class SaleController extends Controller
         $start = $req->query('start');
         $end = $req->query('end');
         $sort = $req->query('sort', 'asc');
-        $sales = Sale::with('customer:id,name', 'cashier:id,username', 'detail', 'detail.items:id,name,price,qty')->orderBy('order_date', $sort)->when($start && $end, function ($query) use ($start, $end) {
+        $query = Sale::with('customer:id,name', 'cashier:id,username', 'detail', 'detail.items:id,name,price,qty')->orderBy('order_date', $sort)->when($start && $end, function ($query) use ($start, $end) {
             $query->whereBetween('order_date', [$start, $end]);
-        })->paginate(10);
+        });
+
+        $sales = (clone $query)->paginate(10);
+        $fullSales = (clone $query)->get();
 
         $cashiers = User::pluck('username', 'id');
         $customers = Customer::pluck('name', 'id');
@@ -31,7 +34,7 @@ class SaleController extends Controller
         // return response()->json($sales);
 
         // return response()->json($sales);
-        return view('sale.index', compact('sales', 'cashiers', 'customers'));
+        return view('sale.index', compact('sales', 'fullSales', 'cashiers', 'customers'));
     }
 
     public function create()
@@ -118,7 +121,7 @@ class SaleController extends Controller
 
 
         $sale->detail->items->map(function ($item) {
-            $item->subtotal = $item->pivot->qty * $item->price ;//= ($item->price * 0.05 + $item->price);
+            $item->subtotal = $item->pivot->qty * $item->price; //= ($item->price * 0.05 + $item->price);
             // $item->subtotal = $item->subtotal;
             $item->qty = $item->pivot->qty;
             // unset($item->pivot);
@@ -135,5 +138,17 @@ class SaleController extends Controller
         // return response()->json($sale);
         $pdf = PDF::loadView('pdf.sale', compact('sale'));
         return $pdf->stream('Sale report.pdf');
+    }
+
+    public function generateSalesReport(Request $req)
+    {
+        $sales = json_decode($req->sales, true);
+        $sort = $req->sort;
+        $start = str_replace('T', ' ', $req->start?:'');
+        $end = str_replace('T', ' ', $req->end?:'');
+        // dd($req->except(['sales']),$sales);
+        // dd($sales);
+        $pdf = PDF::loadView('pdf.sales', compact('sales', 'start', 'end', 'sort'));
+        return $pdf->stream('Sales report.pdf');
     }
 }

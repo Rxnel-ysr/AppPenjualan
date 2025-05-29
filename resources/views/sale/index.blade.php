@@ -7,7 +7,7 @@ $orderBy = request()->query('order_by');
 $sortBy = request()->query('sort');
 @endphp
 <div class="container">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3 py-2">
         <div class="w-25">
             <a href="{{ route('sale.create') }}" class="btn btn-dark rounded px-4 py-2 shadow">
                 Add Item
@@ -16,6 +16,15 @@ $sortBy = request()->query('sort');
 
         <div class="ms-md-auto">
             <form class="d-flex flex-column flex-md-row gap-4 align-items-md-center" method="get">
+
+                <div class="d-flex align-items-center gap-2">
+                    <label for="start" class="me-2">Start</label>
+                    <input type="datetime-local" class="form-control" id="start" name="start" value="{{ request('start') }}">
+
+                    <label for="end" class="me-2">End</label>
+                    <input type="datetime-local" class="form-control" id="end" name="end" value="{{ request('end') }}">
+
+                </div>
 
                 <div class="d-flex align-items-center gap-2">
                     <label for="sort" class="mb-0 small">Sort:</label>
@@ -28,8 +37,17 @@ $sortBy = request()->query('sort');
 
                 <div class="d-flex gap-2 ms-md-3">
                     <button type="submit" class="btn btn-dark">Search</button>
+                    <button type="submit" form="sales_pdf" class="btn btn-dark">Print Result</button>
                     <a href="{{ route('sale.index') }}" role="link" class="btn btn-dark">Reset</a>
                 </div>
+            </form>
+            <form action="{{ route('sales.pdf') }}" method="post" id="sales_pdf">
+                @csrf
+                <input type="hidden" name="sales" value='@json($fullSales)'>
+                <input type="hidden" name="start" value="{{ request('start') }}">
+                <input type="hidden" name="end" value="{{ request('end') }}">
+                <input type="hidden" name="sort" value="{{ $sortBy ?? 'Desc' }}">
+                
             </form>
         </div>
     </div>
@@ -39,47 +57,31 @@ $sortBy = request()->query('sort');
             <div class="modal-content bg-dark text-light border-0 rounded-4 shadow-lg">
 
                 <div class="modal-header border-0">
-                    <h5 class="modal-title fw-bold" id="formModalLabel">Overview/Edit Item</h5>
+                    <h5 class="modal-title fw-bold" id="formModalLabel">Overview</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form class="needs-validation" action="{{ route('sale.update') }}" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body px-5">
-                        @method('PUT')
-                        @csrf
-                        <input type="hidden" id="id" name="id" value="">
+                <div class="modal-body px-5">
+                    @method('PUT')
+                    @csrf
 
-                        <div class="mb-4">
-                            <label for="customer_select" class="form-label text-uppercase small">Customer</label>
-                            <select id="customer_select" class="form-select bg-secondary bg-opacity-25 border-0 text-light rounded-3 px-4" name="customer_id" required>
-                                <option class="bg-dark" disabled selected>Choose...</option>
-                                @foreach ($customers as $id => $name)
-                                <option class="bg-dark" value="{{ $id }}">{{ $name }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="cashier_select" class="form-label text-uppercase small">Cashier</label>
-                            <select id="cashier_select" class="form-select bg-secondary bg-opacity-25 border-0 text-light rounded-3 px-4" name="cashier_id" required>
-                                <option class="bg-dark" disabled selected>Choose...</option>
-                                @foreach ($cashiers as $id => $username)
-                                <option class="bg-dark" value="{{ $id }}">{{ $username }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
+                    <div class="mb-4">
+                        <label for="cashier" class="form-label text-uppercase small">Cashier</label>
+                        <input type="text" class="form-control bg-secondary bg-opacity-25 border-0 text-light rounded-3 px-4" id="cashier" name="cashier" readonly>
                     </div>
 
-                    <div class="modal-footer border-0 px-5 pb-4">
-                        <button type="submit" form="sale_pdf" class="btn btn-light rounded-3 px-4">Print Detail</button>
-                        <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger rounded-3 px-4" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-                        <button type="submit" class="btn btn-secondary rounded-3 px-4 shadow-sm">Submit</button>
+                    <div class="mb-4">
+                        <label for="customer" class="form-label text-uppercase small">Cashier</label>
+                        <input type="text" class="form-control bg-secondary bg-opacity-25 border-0 text-light rounded-3 px-4" id="customer" name="customer" readonly>
                     </div>
-                </form>
+
+                </div>
+
+                <div class="modal-footer border-0 px-5 pb-4">
+                    <button type="submit" form="sale_pdf" class="btn btn-light rounded-3 px-4">Print Detail</button>
+                    <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger rounded-3 px-4" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                </div>
                 <form action="{{ route('sale.pdf') }}" id="sale_pdf" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="id" value="">
@@ -128,6 +130,8 @@ $sortBy = request()->query('sort');
                 <th scope="col">No</th>
                 <th scope="col">Cashier</th>
                 <th scope="col">Customer</th>
+                <th scope="col">Total</th>
+                <th scope="col">Order date</th>
             </tr>
         </thead>
         <tbody>
@@ -137,10 +141,12 @@ $sortBy = request()->query('sort');
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td class="text-center">{{ $sale->cashier->username }}</td>
                 <td class="text-center">{{ $sale->customer->name }}</td>
+                <td class="text-center">${{ number_format($sale->detail->total,2) }}</td>
+                <td class="text-center">{{ $sale->order_date }}</td>
             </tr>
             @empty
             <tr class="hover table-dark text-center">
-                <td colspan="3" class="fw-bold">No Data... yet?</td>
+                <td colspan="5" class="fw-bold">No Data... yet?</td>
             </tr>
             @endforelse
         </tbody>
@@ -161,8 +167,8 @@ $sortBy = request()->query('sort');
                 let data = JSON.parse(row.dataset.item);
                 console.log(edit_modal, data);
                 edit_modal.querySelectorAll('#id').forEach(item => item.value = data.id)
-                edit_modal.querySelector('#customer_select').value = data.customer.id;
-                edit_modal.querySelector('#cashier_select').value = data.cashier.id;
+                edit_modal.querySelector('#customer').value = data.customer.name;
+                edit_modal.querySelector('#cashier').value = data.cashier.username;
                 // edit_modal.querySelector('#delete_id').value = data.id;
                 edit_btn.click();
             });
