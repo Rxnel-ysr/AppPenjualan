@@ -28,6 +28,7 @@ $category = request('category');
                         id="order_by" name="order_by" style="min-width: 100px;">
                         <option value="updated_at" {{ $orderBy == 'updated_at' ? 'selected' : '' }}>Edited</option>
                         <option value="created_at" {{ $orderBy == 'created_at' ? 'selected' : '' }}>Added</option>
+                        <option value="qty" {{ $orderBy == 'quantity' ? 'selected' : '' }}>Quantity</option>
                     </select>
                 </div>
 
@@ -35,8 +36,8 @@ $category = request('category');
                     <label for="sort" class="mb-0 small">Sort:</label>
                     <select class="form-select border-0 rounded-3 px-3"
                         id="sort" name="sort" style="min-width: 100px;">
-                        <option value="asc" {{ $sortBy == 'asc' ? 'selected' : '' }}>Oldest</option>
-                        <option value="desc" {{ $sortBy == 'desc' ? 'selected' : '' }}>Newest</option>
+                        <option value="asc" {{ $sortBy == 'asc' ? 'selected' : '' }}>Asc</option>
+                        <option value="desc" {{ $sortBy == 'desc' ? 'selected' : '' }}>Desc</option>
                     </select>
                 </div>
 
